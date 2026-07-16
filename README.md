@@ -18,7 +18,7 @@ After adding the marketplace, restart Codex completely. Open Plugins, select **W
 
 | Category | Scope | Plugins |
 |---|---|---|
-| Codex Tools | Codex 配置、网络、环境、诊断与维护 | `fix-codex-retry-loop` |
+| Codex Tools | Codex 配置、网络、环境、诊断与维护 | [`fix-codex-retry-loop`](plugins/fix-codex-retry-loop/README.md) |
 | Development | 编码、测试、调试与 CI/CD | — |
 | Design | UI、视觉、交互与设计工作流 | — |
 | Productivity | 文档、信息整理与个人效率 | — |
@@ -26,7 +26,7 @@ After adding the marketplace, restart Codex completely. Open Plugins, select **W
 
 ## Plugins
 
-### fix-codex-retry-loop
+### [fix-codex-retry-loop](plugins/fix-codex-retry-loop/README.md)
 
 Windows 优先的 Codex 网络诊断与代理配置 Skill：
 
@@ -36,6 +36,8 @@ Windows 优先的 Codex 网络诊断与代理配置 Skill：
 - 验证代理端口和 OpenAI API 网络路径，并提醒完全重启 Codex。
 
 `401` 只表示未携带凭据的测试请求已到达 OpenAI 服务端，不代表账号认证已经完成。
+
+[查看完整描述、安装、使用、更新、卸载与回滚说明。](plugins/fix-codex-retry-loop/README.md)
 
 ## Compatibility
 

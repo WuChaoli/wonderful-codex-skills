@@ -50,6 +50,28 @@ foreach ($category in @('Codex Tools', 'Development', 'Design', 'Productivity', 
     Assert-True ($readme -match [regex]::Escape($category)) "README must list category $category"
 }
 
+$pluginReadmePath = Join-Path $pluginRoot 'README.md'
+Assert-True (Test-Path $pluginReadmePath) 'plugin README must exist'
+Assert-True ($readme -match [regex]::Escape('plugins/fix-codex-retry-loop/README.md')) 'root README must link to plugin README'
+$pluginReadme = Get-Content -Raw $pluginReadmePath
+$guideContracts = [ordered]@{
+    install = 'codex plugin marketplace add WuChaoli/wonderful-codex-skills'
+    invoke = '\$fix-codex-retry-loop'
+    windows = 'Windows'
+    confirmation = '明确确认'
+    backup = '备份'
+    restart = '完全.*重启 Codex'
+    reachability = '401'
+    rateLimit = '429'
+    serverError = '5xx'
+    upgrade = 'codex plugin marketplace upgrade wonderful-codex-skills'
+    uninstall = '卸载'
+    rollback = '回滚'
+}
+foreach ($contract in $guideContracts.GetEnumerator()) {
+    Assert-True ($pluginReadme -match $contract.Value) "plugin README must document $($contract.Key)"
+}
+
 $workflow = Get-Content -Raw $workflowPath
 foreach ($testName in @('validate_repository.ps1', 'fix_codex_proxy.Tests.ps1', 'skill_contract.Tests.ps1')) {
     Assert-True ($workflow -match [regex]::Escape($testName)) "CI must run $testName"
