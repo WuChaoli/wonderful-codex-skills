@@ -45,7 +45,8 @@ Python 只使用标准库，避免要求 PowerShell、Bash 或额外包。`valid
 ### SKILL.md
 
 - YAML frontmatter 必须完整闭合且可由受限解析器验证。
-- frontmatter 只允许 `name` 和 `description`。
+- `name` 和 `description` 为必需字段；允许保留其他扩展字段。
+- 推荐提供 `version`，存在时必须使用严格语义化版本；发布器生成的新 Skill 默认写入 `version`。
 - `description` 必须非空、长度不超过 1024 个字符，并说明明确的使用触发场景。
 - 正文必须非空，不能包含 `TODO`、`TBD` 或模板占位符。
 - Skill 名称必须少于 64 个字符。
@@ -55,7 +56,7 @@ Python 只使用标准库，避免要求 PowerShell、Bash 或额外包。`valid
 - Skill 本体不要求 `README.md`；用户文档位于 Plugin 根目录。
 - Plugin 根目录必须有 `README.md`，并包含描述、安装、调用、更新和卸载说明。
 - 必须存在 `.codex-plugin/plugin.json` 与 `agents/openai.yaml`。
-- Plugin manifest 的名称、版本、skills 路径、仓库地址和分类必须合法。
+- Plugin manifest 的名称、版本、skills 路径、仓库地址和分类必须合法；其版本必须与 Skill frontmatter 的 `version` 一致。
 - `.agents/plugins/marketplace.json` 中的名称、路径和分类必须与 Plugin 一致。
 - 根 `README.md` 必须在分类表和 Plugins 段落中索引新 Plugin。
 
