@@ -63,4 +63,3 @@ description: Use when Codex on Windows is stuck in retry, reconnecting, network 
 ## 回滚
 
 恢复 Apply 返回的备份文件，或只删除 `.env` 中的 `HTTP_PROXY`、`HTTPS_PROXY`、`NO_PROXY`，随后完全重启 Codex。
-

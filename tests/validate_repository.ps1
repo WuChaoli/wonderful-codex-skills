@@ -35,4 +35,24 @@ $openAiKeyPattern = 's' + 'k-[A-Za-z0-9_-]{20,}'
 $sensitiveHits = $publicFiles | Select-String -Pattern "C:\\Users\\$localUser|$githubTokenPrefix|$openAiKeyPattern" -ErrorAction SilentlyContinue
 Assert-True (-not $sensitiveHits) 'repository must not contain machine paths or common secret patterns'
 
+$readmePath = Join-Path $repoRoot 'README.md'
+$contributingPath = Join-Path $repoRoot 'CONTRIBUTING.md'
+$licensePath = Join-Path $repoRoot 'LICENSE'
+$workflowPath = Join-Path $repoRoot '.github\workflows\validate.yml'
+Assert-True (Test-Path $readmePath) 'README.md must exist'
+Assert-True (Test-Path $contributingPath) 'CONTRIBUTING.md must exist'
+Assert-True (Test-Path $licensePath) 'LICENSE must exist'
+Assert-True (Test-Path $workflowPath) 'Windows validation workflow must exist'
+
+$readme = Get-Content -Raw $readmePath
+Assert-True ($readme -match 'codex plugin marketplace add WuChaoli/wonderful-codex-skills') 'README must include the install command'
+foreach ($category in @('Codex Tools', 'Development', 'Design', 'Productivity', 'Other')) {
+    Assert-True ($readme -match [regex]::Escape($category)) "README must list category $category"
+}
+
+$workflow = Get-Content -Raw $workflowPath
+foreach ($testName in @('validate_repository.ps1', 'fix_codex_proxy.Tests.ps1', 'skill_contract.Tests.ps1')) {
+    Assert-True ($workflow -match [regex]::Escape($testName)) "CI must run $testName"
+}
+
 Write-Output "PASS: $passed repository checks"
