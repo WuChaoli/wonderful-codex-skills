@@ -1,0 +1,5 @@
+interface:
+  display_name: "修复 Codex 重试循环"
+  short_description: "诊断 Windows 网络代理，并在确认后安全修复 Codex 持续重试"
+  default_prompt: "使用 $fix-codex-retry-loop 诊断 Codex 持续 retry 或 reconnecting；需要代理配置时先展示变更并征得确认。"
+
