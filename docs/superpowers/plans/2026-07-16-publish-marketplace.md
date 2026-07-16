@@ -13,7 +13,7 @@
 - 公开仓库名固定为 `WuChaoli/wonderful-codex-skills`，默认分支 `main`。
 - Marketplace 分类固定为 `Codex Tools`、`Development`、`Design`、`Productivity`、`Other`。
 - Plugin 路径固定为 `plugins/fix-codex-retry-loop`，版本 `0.1.0`，许可证 MIT。
-- 不发布 `.env`、备份、代理凭据、API 密钥或 `C:\Users\wuchaoli` 等机器专属路径。
+- 不发布 `.env`、备份、代理凭据、API 密钥或展开后的 `%USERPROFILE%` 等机器专属路径。
 - 写入代理配置前必须取得用户明确确认；真实网络调用不进入 CI。
 - Git 提交使用中文 `<动作>：<总结>` 格式。
 

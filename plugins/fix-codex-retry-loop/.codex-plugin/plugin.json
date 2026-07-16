@@ -1,0 +1,24 @@
+{
+  "name": "fix-codex-retry-loop",
+  "version": "0.1.0",
+  "description": "Diagnose and repair Windows proxy configuration behind repeated Codex retry and reconnecting loops.",
+  "author": {
+    "name": "WuChaoli",
+    "url": "https://github.com/WuChaoli"
+  },
+  "homepage": "https://github.com/WuChaoli/wonderful-codex-skills/tree/main/plugins/fix-codex-retry-loop",
+  "repository": "https://github.com/WuChaoli/wonderful-codex-skills",
+  "license": "MIT",
+  "keywords": ["codex", "windows", "proxy", "network", "retry"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Fix Codex Retry Loop",
+    "shortDescription": "Safely repair Codex proxy settings on Windows",
+    "longDescription": "Detect Windows proxy listeners, distinguish network failures from authentication responses, and update Codex proxy settings only after explicit confirmation.",
+    "developerName": "WuChaoli",
+    "category": "Codex Tools",
+    "capabilities": ["Read", "Write", "Network"],
+    "websiteURL": "https://github.com/WuChaoli/wonderful-codex-skills",
+    "defaultPrompt": "Use Fix Codex Retry Loop to diagnose repeated Codex retry or reconnecting errors on Windows."
+  }
+}

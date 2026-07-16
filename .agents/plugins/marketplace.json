@@ -1,0 +1,20 @@
+{
+  "name": "wonderful-codex-skills",
+  "interface": {
+    "displayName": "Wonderful Codex Skills"
+  },
+  "plugins": [
+    {
+      "name": "fix-codex-retry-loop",
+      "source": {
+        "source": "local",
+        "path": "./plugins/fix-codex-retry-loop"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Codex Tools"
+    }
+  ]
+}
