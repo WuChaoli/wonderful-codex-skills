@@ -15,11 +15,14 @@ Assert-True (Test-Path $manifestPath) 'plugin.json must exist'
 
 $marketplace = Get-Content -Raw $marketplacePath | ConvertFrom-Json
 $entry = $marketplace.plugins | Where-Object name -eq 'fix-codex-retry-loop'
+$lagEntry = $marketplace.plugins | Where-Object name -eq 'diagnose-codex-desktop-lag'
 Assert-True ($marketplace.name -eq 'wonderful-codex-skills') 'marketplace name must be stable'
 Assert-True ($marketplace.interface.displayName -eq 'Wonderful Codex Skills') 'marketplace display name must match'
 Assert-True ($entry.source.path -eq './plugins/fix-codex-retry-loop') 'plugin source path must be repository-relative'
 Assert-True ($entry.category -eq 'Codex Tools') 'plugin must be categorized as Codex Tools'
 Assert-True ($entry.policy.installation -eq 'AVAILABLE' -and $entry.policy.authentication -eq 'ON_INSTALL') 'marketplace policy must be explicit'
+Assert-True ($lagEntry.source.path -eq './plugins/diagnose-codex-desktop-lag') 'lag plugin source path must be repository-relative'
+Assert-True ($lagEntry.category -eq 'Codex Tools') 'lag plugin must be categorized as Codex Tools'
 
 $manifest = Get-Content -Raw $manifestPath | ConvertFrom-Json
 Assert-True ($manifest.name -eq 'fix-codex-retry-loop') 'manifest name must match folder'
@@ -53,6 +56,7 @@ foreach ($category in @('Codex Tools', 'Development', 'Design', 'Productivity', 
 $pluginReadmePath = Join-Path $pluginRoot 'README.md'
 Assert-True (Test-Path $pluginReadmePath) 'plugin README must exist'
 Assert-True ($readme -match [regex]::Escape('plugins/fix-codex-retry-loop/README.md')) 'root README must link to plugin README'
+Assert-True ($readme -match [regex]::Escape('plugins/diagnose-codex-desktop-lag/README.md')) 'root README must link to lag plugin README'
 $pluginReadme = Get-Content -Raw $pluginReadmePath
 $guideContracts = [ordered]@{
     install = 'codex plugin marketplace add WuChaoli/wonderful-codex-skills'
@@ -73,7 +77,7 @@ foreach ($contract in $guideContracts.GetEnumerator()) {
 }
 
 $workflow = Get-Content -Raw $workflowPath
-foreach ($testName in @('validate_repository.ps1', 'fix_codex_proxy.Tests.ps1', 'skill_contract.Tests.ps1')) {
+foreach ($testName in @('validate_repository.ps1', 'fix_codex_proxy.Tests.ps1', 'skill_contract.Tests.ps1', 'diagnose_codex_desktop_lag.Tests.ps1')) {
     Assert-True ($workflow -match [regex]::Escape($testName)) "CI must run $testName"
 }
 

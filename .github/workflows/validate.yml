@@ -34,3 +34,7 @@ jobs:
       - name: Test skill contract
         shell: pwsh
         run: pwsh -NoProfile -File tests/skill_contract.Tests.ps1
+
+      - name: Test Codex Desktop lag skill
+        shell: pwsh
+        run: pwsh -NoProfile -File tests/diagnose_codex_desktop_lag.Tests.ps1
