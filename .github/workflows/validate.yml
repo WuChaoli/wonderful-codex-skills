@@ -9,6 +9,20 @@ permissions:
   contents: read
 
 jobs:
+  validate-python:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Test cross-platform Skill tooling
+        run: python -m unittest discover -s tests -p "test_*.py" -v
+
+      - name: Validate publisher Plugin
+        run: python plugins/publish-codex-skill/skills/publish-codex-skill/scripts/validate_skill.py plugins/publish-codex-skill --plugin --repository-root .
+
   validate-windows:
     runs-on: windows-latest
     steps:

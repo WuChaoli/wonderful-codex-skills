@@ -3,6 +3,8 @@
 [![Marketplace](https://img.shields.io/badge/Marketplace-Wonderful%20Codex%20Skills-10A37F)](https://github.com/WuChaoli/wonderful-codex-skills)
 [![Windows CI](https://github.com/WuChaoli/wonderful-codex-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/WuChaoli/wonderful-codex-skills/actions/workflows/validate.yml)
 
+## 描述 / Description
+
 用于诊断 Windows 上 Codex 持续 `retry`、`reconnecting`、网络错误或请求超时，并在用户明确确认后安全配置本机 HTTP/Mixed 代理。
 
 Diagnose repeated Codex retry or reconnecting failures on Windows and safely configure a local proxy only after explicit user confirmation.

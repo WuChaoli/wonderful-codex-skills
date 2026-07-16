@@ -2,3 +2,5 @@
 .env.*
 *.backup-*
 *.tmp-*
+__pycache__/
+*.py[cod]

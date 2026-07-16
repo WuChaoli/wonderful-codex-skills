@@ -1,6 +1,8 @@
 ---
 name: fix-codex-retry-loop
 description: Use when Codex on Windows is stuck in retry, reconnecting, network error, connection timeout, or repeated request failures, especially with Clash, Mihomo, a local proxy port, or CODEX_HOME/.env proxy configuration.
+metadata:
+  version: 0.1.0
 ---
 
 # Fix Codex Retry Loop

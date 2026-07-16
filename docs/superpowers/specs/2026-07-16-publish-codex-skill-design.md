@@ -46,7 +46,7 @@ Python 只使用标准库，避免要求 PowerShell、Bash 或额外包。`valid
 
 - YAML frontmatter 必须完整闭合且可由受限解析器验证。
 - `name` 和 `description` 为必需字段；允许保留其他扩展字段。
-- 推荐提供 `version`，存在时必须使用严格语义化版本；发布器生成的新 Skill 默认写入 `version`。
+- 推荐提供 `version`，存在时必须使用严格语义化版本；为兼容 Codex 官方 validator，发布器生成的新 Skill 默认写入 `metadata.version`，审查器同时接受顶层扩展字段。
 - `description` 必须非空、长度不超过 1024 个字符，并说明明确的使用触发场景。
 - 正文必须非空，不能包含 `TODO`、`TBD` 或模板占位符。
 - Skill 名称必须少于 64 个字符。

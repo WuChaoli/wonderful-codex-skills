@@ -80,6 +80,51 @@ class ValidateSkillTests(unittest.TestCase):
         self.assertTrue(payload["valid"])
         self.assertEqual([], payload["errors"])
 
+    def create_plugin(self):
+        plugin = self.root / "plugins" / "sample-skill"
+        skill = plugin / "skills" / "sample-skill"
+        skill.mkdir(parents=True)
+        (skill / "SKILL.md").write_text(
+            "---\nname: sample-skill\ndescription: Use when publishing.\nversion: 1.2.3\n---\n\n# Workflow\n",
+            encoding="utf-8",
+        )
+        (skill / "agents").mkdir()
+        (skill / "agents" / "openai.yaml").write_text("interface:\n  display_name: Sample\n", encoding="utf-8")
+        (plugin / ".codex-plugin").mkdir()
+        (plugin / ".codex-plugin" / "plugin.json").write_text(
+            json.dumps({"name": "sample-skill", "version": "1.2.3", "skills": "./skills/"}),
+            encoding="utf-8",
+        )
+        (plugin / "README.md").write_text(
+            "# Sample\n\n## Description\nText\n## Install\nText\n## Invoke\nText\n## Update\nText\n## Uninstall\nText\n",
+            encoding="utf-8",
+        )
+        marketplace = self.root / ".agents" / "plugins"
+        marketplace.mkdir(parents=True)
+        (marketplace / "marketplace.json").write_text(
+            json.dumps({"plugins": [{"name": "sample-skill", "source": {"path": "./plugins/sample-skill"}, "category": "Codex Tools"}]}),
+            encoding="utf-8",
+        )
+        (self.root / "README.md").write_text("[sample-skill](plugins/sample-skill/README.md)", encoding="utf-8")
+        return plugin
+
+    def test_validates_plugin_readme_manifest_and_marketplace(self):
+        module = load_module()
+        report = module.validate_plugin(self.create_plugin(), self.root)
+        self.assertEqual([], report.errors)
+
+    def test_rejects_missing_readme_section_and_version_mismatch(self):
+        module = load_module()
+        plugin = self.create_plugin()
+        (plugin / "README.md").write_text("# Sample\n\n## Install\n", encoding="utf-8")
+        manifest = plugin / ".codex-plugin" / "plugin.json"
+        data = json.loads(manifest.read_text(encoding="utf-8"))
+        data["version"] = "2.0.0"
+        manifest.write_text(json.dumps(data), encoding="utf-8")
+        errors = "\n".join(module.validate_plugin(plugin, self.root).errors)
+        self.assertIn("README", errors)
+        self.assertIn("version", errors)
+
 
 if __name__ == "__main__":
     unittest.main()
