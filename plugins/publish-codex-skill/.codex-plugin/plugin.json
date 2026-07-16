@@ -1,0 +1,24 @@
+{
+  "name": "publish-codex-skill",
+  "version": "0.1.0",
+  "description": "Validate, package, and safely publish Codex Skills to Wonderful Codex Skills.",
+  "author": {
+    "name": "WuChaoli",
+    "url": "https://github.com/WuChaoli"
+  },
+  "homepage": "https://github.com/WuChaoli/wonderful-codex-skills/tree/main/plugins/publish-codex-skill",
+  "repository": "https://github.com/WuChaoli/wonderful-codex-skills",
+  "license": "MIT",
+  "keywords": ["codex", "skill", "validation", "marketplace", "publishing"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Publish Codex Skill",
+    "shortDescription": "Validate and safely publish Codex Skills",
+    "longDescription": "Review Skill structure and metadata, verify Marketplace packaging, and require explicit confirmation before committing and pushing.",
+    "developerName": "WuChaoli",
+    "category": "Codex Tools",
+    "capabilities": ["Read", "Write", "Git"],
+    "websiteURL": "https://github.com/WuChaoli/wonderful-codex-skills",
+    "defaultPrompt": "Use Publish Codex Skill to validate and publish a Skill after explicit confirmation."
+  }
+}

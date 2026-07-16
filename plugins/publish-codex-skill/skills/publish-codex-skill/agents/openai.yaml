@@ -1,0 +1,4 @@
+interface:
+  display_name: "Publish Codex Skill"
+  short_description: "Validate and safely publish Codex Skills"
+  default_prompt: "Use $publish-codex-skill to validate and publish this Skill after confirmation."

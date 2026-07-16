@@ -30,7 +30,7 @@ Assert-True ($manifest.version -eq '0.1.0') 'manifest version must be 0.1.0'
 Assert-True ($manifest.skills -eq './skills/') 'manifest must point to skills directory'
 Assert-True ($manifest.license -eq 'MIT') 'manifest license must be MIT'
 
-$publicFiles = Get-ChildItem -Recurse -File $repoRoot | Where-Object FullName -NotMatch '\\.git\\'
+$publicFiles = Get-ChildItem -Recurse -File $repoRoot | Where-Object FullName -NotMatch '\\.git\\|__pycache__'
 Assert-True (-not ($publicFiles | Where-Object Name -Match '^\.env($|\.)')) 'repository must not contain .env or backups'
 $localUser = 'wucha' + 'oli'
 $githubTokenPrefix = 'github' + '_pat_'
@@ -47,6 +47,16 @@ Assert-True (Test-Path $contributingPath) 'CONTRIBUTING.md must exist'
 Assert-True (Test-Path $licensePath) 'LICENSE must exist'
 Assert-True (Test-Path $workflowPath) 'Windows validation workflow must exist'
 
+$publisherRoot = Join-Path $repoRoot 'plugins\publish-codex-skill'
+$publisherSkill = Join-Path $publisherRoot 'skills\publish-codex-skill\SKILL.md'
+$publisherReadme = Join-Path $publisherRoot 'README.md'
+$publisherManifest = Join-Path $publisherRoot '.codex-plugin\plugin.json'
+Assert-True (Test-Path $publisherSkill) 'publisher SKILL.md must exist'
+Assert-True (Test-Path $publisherReadme) 'publisher Plugin README must exist'
+Assert-True (Test-Path $publisherManifest) 'publisher plugin.json must exist'
+$publisherEntry = $marketplace.plugins | Where-Object name -eq 'publish-codex-skill'
+Assert-True ($publisherEntry.category -eq 'Codex Tools') 'publisher must be categorized as Codex Tools'
+
 $readme = Get-Content -Raw $readmePath
 Assert-True ($readme -match 'codex plugin marketplace add WuChaoli/wonderful-codex-skills') 'README must include the install command'
 foreach ($category in @('Codex Tools', 'Development', 'Design', 'Productivity', 'Other')) {
@@ -56,6 +66,7 @@ foreach ($category in @('Codex Tools', 'Development', 'Design', 'Productivity', 
 $pluginReadmePath = Join-Path $pluginRoot 'README.md'
 Assert-True (Test-Path $pluginReadmePath) 'plugin README must exist'
 Assert-True ($readme -match [regex]::Escape('plugins/fix-codex-retry-loop/README.md')) 'root README must link to plugin README'
+Assert-True ($readme -match [regex]::Escape('plugins/publish-codex-skill/README.md')) 'root README must link to publisher README'
 Assert-True ($readme -match [regex]::Escape('plugins/diagnose-codex-desktop-lag/README.md')) 'root README must link to lag plugin README'
 $pluginReadme = Get-Content -Raw $pluginReadmePath
 $guideContracts = [ordered]@{
@@ -80,5 +91,9 @@ $workflow = Get-Content -Raw $workflowPath
 foreach ($testName in @('validate_repository.ps1', 'fix_codex_proxy.Tests.ps1', 'skill_contract.Tests.ps1', 'diagnose_codex_desktop_lag.Tests.ps1')) {
     Assert-True ($workflow -match [regex]::Escape($testName)) "CI must run $testName"
 }
+foreach ($runner in @('ubuntu-latest', 'macos-latest', 'windows-latest')) {
+    Assert-True ($workflow -match [regex]::Escape($runner)) "CI must validate on $runner"
+}
+Assert-True ($workflow -match 'python -m unittest discover') 'CI must run cross-platform Python tests'
 
 Write-Output "PASS: $passed repository checks"

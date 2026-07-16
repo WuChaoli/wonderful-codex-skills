@@ -18,7 +18,7 @@ After adding the marketplace, restart Codex completely. Open Plugins, select **W
 
 | Category | Scope | Plugins |
 |---|---|---|
-| Codex Tools | Codex 配置、网络、环境、诊断与维护 | [`fix-codex-retry-loop`](plugins/fix-codex-retry-loop/README.md), [`diagnose-codex-desktop-lag`](plugins/diagnose-codex-desktop-lag/README.md) |
+| Codex Tools | Codex 配置、网络、环境、诊断与维护 | [`fix-codex-retry-loop`](plugins/fix-codex-retry-loop/README.md), [`publish-codex-skill`](plugins/publish-codex-skill/README.md), [`diagnose-codex-desktop-lag`](plugins/diagnose-codex-desktop-lag/README.md) |
 | Development | 编码、测试、调试与 CI/CD | — |
 | Design | UI、视觉、交互与设计工作流 | — |
 | Productivity | 文档、信息整理与个人效率 | — |
@@ -39,6 +39,17 @@ Windows 优先的 Codex 网络诊断与代理配置 Skill：
 
 [查看完整描述、安装、使用、更新、卸载与回滚说明。](plugins/fix-codex-retry-loop/README.md)
 
+### [publish-codex-skill](plugins/publish-codex-skill/README.md)
+
+跨平台 Codex Skill 审查与发布门禁：
+
+- 检查 Skill 文件夹、`SKILL.md`、扩展 YAML 字段和语义化版本。
+- 检查 Plugin README、manifest 与 Marketplace 索引。
+- 将发布意图绑定到一次性确认令牌，内容漂移后自动失效。
+- 仅在用户明确确认后提交并推送到指定仓库。
+
+[查看完整描述、安装、调用、更新与卸载说明。](plugins/publish-codex-skill/README.md)
+
 ### [diagnose-codex-desktop-lag](plugins/diagnose-codex-desktop-lag/README.md)
 
 Windows Codex Desktop 性能诊断与安全修复 Skill：
@@ -53,8 +64,9 @@ Windows Codex Desktop 性能诊断与安全修复 Skill：
 ## Compatibility
 
 - Codex CLI or Codex desktop app with Plugin Marketplace support
-- Windows 10/11
-- PowerShell 7 (`pwsh`)
+- Windows 10/11, macOS, or Linux (Plugin-specific limitations may apply)
+- Python 3 for `publish-codex-skill`
+- PowerShell 7 (`pwsh`) for `fix-codex-retry-loop` and `diagnose-codex-desktop-lag`
 - Python 3.11+ for `diagnose-codex-desktop-lag`
 - A local HTTP/Mixed proxy when proxy configuration is required
 

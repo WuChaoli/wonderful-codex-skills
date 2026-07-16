@@ -33,4 +33,13 @@ pwsh -NoProfile -File tests/fix_codex_proxy.Tests.ps1
 pwsh -NoProfile -File tests/skill_contract.Tests.ps1
 ```
 
+跨平台 Skill 与 Plugin 结构审查在 Windows、macOS 和 Linux 上运行：
+
+```text
+python -m unittest discover -s tests -p "test_*.py" -v
+python plugins/publish-codex-skill/skills/publish-codex-skill/scripts/validate_skill.py plugins/<plugin-name> --plugin --repository-root .
+```
+
+`SKILL.md` frontmatter 必须包含 `name` 和 `description`，审查器允许扩展字段。为兼容 Codex 官方 validator，发布文件推荐在 `metadata.version` 提供严格语义化版本，并与 Plugin manifest 版本一致。面向用户的安装与使用文档放在 Plugin 根目录 `README.md`。
+
 提交信息使用中文 `<动作>：<总结>` 格式。

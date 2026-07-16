@@ -17,6 +17,18 @@
       "category": "Codex Tools"
     },
     {
+      "name": "publish-codex-skill",
+      "source": {
+        "source": "local",
+        "path": "./plugins/publish-codex-skill"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Codex Tools"
+    },
+    {
       "name": "diagnose-codex-desktop-lag",
       "source": {
         "source": "local",
@@ -24,7 +36,7 @@
       },
       "policy": {
         "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
+        "source": "ON_INSTALL"
       },
       "category": "Codex Tools"
     }
