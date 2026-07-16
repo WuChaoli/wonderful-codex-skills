@@ -18,7 +18,7 @@ Assert-True ($manifest.name -eq 'diagnose-codex-desktop-lag') 'manifest name mus
 Assert-True ($manifest.version -eq '0.1.0') 'manifest version must be 0.1.0'
 Assert-True ($manifest.skills -eq './skills/') 'manifest must point to skills directory'
 Assert-True ($skill -match '(?m)^description: Use when Windows Codex Desktop') 'skill must expose concrete triggers'
-Assert-True ($skill -match '(?m)^version: 0\.1\.0$') 'skill version must match manifest'
+Assert-True ($skill -match '(?m)^version: 0\.1\.0\r?$') 'skill version must match manifest'
 Assert-True ($skill -match '一次只执行一项修复') 'skill must enforce one repair at a time'
 Assert-True ($skill -match '不派发子智能体') 'skill must remain inline'
 Assert-True ($skill -match 'show-context-window-usage') 'skill must preserve requested context usage display'
