@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex 桌面端性能诊断"
+  short_description: "逐项诊断并安全修复 Windows Codex Desktop 卡顿"
+  default_prompt: "Use $diagnose-codex-desktop-lag to diagnose this Windows Codex Desktop slowdown before proposing one confirmed repair."

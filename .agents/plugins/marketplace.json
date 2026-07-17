@@ -27,6 +27,18 @@
         "authentication": "ON_INSTALL"
       },
       "category": "Codex Tools"
+    },
+    {
+      "name": "diagnose-codex-desktop-lag",
+      "source": {
+        "source": "local",
+        "path": "./plugins/diagnose-codex-desktop-lag"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "source": "ON_INSTALL"
+      },
+      "category": "Codex Tools"
     }
   ]
 }
