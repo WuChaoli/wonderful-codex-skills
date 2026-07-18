@@ -5,16 +5,16 @@
 
 ## 描述 / Description
 
-用于诊断 Windows 上 Codex 持续 `retry`、`reconnecting`、网络错误或请求超时，并在用户明确确认后安全配置本机 HTTP/Mixed 代理。
+用于诊断 Windows、macOS 或 Linux 上 Codex 持续 `retry`、`reconnecting`、网络错误或请求超时，并在用户明确确认后安全配置本机 HTTP/Mixed 代理。
 
-Diagnose repeated Codex retry or reconnecting failures on Windows and safely configure a local proxy only after explicit user confirmation.
+Diagnose repeated Codex retry or reconnecting failures on Windows, macOS, or Linux and safely configure a local proxy only after explicit user confirmation.
 
 ## 适用场景
 
 - Codex 持续显示 retry、reconnecting、network error 或 connection timeout。
 - 已运行 Clash、Mihomo 等代理软件，但 Codex 没有经过代理。
-- 需要检查 `$CODEX_HOME/.env`、Windows 系统代理和实际监听端口。
-- 希望自动备份并更新 `HTTP_PROXY`、`HTTPS_PROXY`、`NO_PROXY`。
+- 需要检查 `$CODEX_HOME/.env`、系统代理和实际监听端口。
+- 希望在确认后备份并写入 `$CODEX_HOME/.env` 中的 `HTTP_PROXY`、`HTTPS_PROXY`、`NO_PROXY`。
 
 它不会把所有重试都归因于代理。认证失败、限流和服务端故障会分别报告，不会擅自修改配置。
 
@@ -29,8 +29,8 @@ Diagnose repeated Codex retry or reconnecting failures on Windows and safely con
 
 ## 兼容性
 
-- Windows 10/11
-- PowerShell 7（`pwsh`）
+- Windows 10/11、macOS 或 Linux
+- Windows 需要 PowerShell 7（`pwsh`）；macOS/Linux 使用系统网络诊断工具
 - 支持 Plugin Marketplace 的 Codex CLI 或 Codex desktop app
 - 配置代理时需要可用的本机 HTTP/Mixed 代理端口
 
@@ -65,15 +65,15 @@ Add the public marketplace with the command above.
 也可以描述实际症状：
 
 ```text
-Codex 一直 reconnecting。我在 Windows 上使用 Clash，请检查代理端口；修改配置前先让我确认。
+Codex 一直 reconnecting。我在 macOS 上使用 Clash，请检查代理端口；修改配置前先让我确认，确认后写入 `$CODEX_HOME/.env`。
 ```
 
 Skill 会按以下顺序执行：
 
-1. Detect：定位 Codex Home、现有 `.env`、Windows 系统代理和代理监听端口。
+1. Detect：定位 Codex Home、现有 `.env`、系统代理和代理监听端口。
 2. Diagnose：区分网络、认证、限流和服务端错误。
 3. Confirm：展示精确变更并等待用户明确确认。
-4. Apply：确认后备份并更新代理变量。
+4. Apply：确认后备份并写入 `$CODEX_HOME/.env` 的代理变量。
 5. Verify：检查端口和 OpenAI API 网络路径。
 6. Restart：提醒用户完全退出并重启 Codex。
 

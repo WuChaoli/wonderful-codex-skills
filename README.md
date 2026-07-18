@@ -28,11 +28,11 @@ After adding the marketplace, restart Codex completely. Open Plugins, select **W
 
 ### [fix-codex-retry-loop](plugins/fix-codex-retry-loop/README.md)
 
-Windows 优先的 Codex 网络诊断与代理配置 Skill：
+跨平台的 Codex 网络诊断与代理配置 Skill：
 
 - 检测 Clash、Mihomo 等代理进程和监听端口。
 - 区分网络故障、认证响应与服务端错误。
-- 仅在用户明确确认后备份并更新 `$CODEX_HOME/.env`。
+- 仅在用户明确确认后备份并写入 `$CODEX_HOME/.env`。
 - 验证代理端口和 OpenAI API 网络路径，并提醒完全重启 Codex。
 
 `401` 只表示未携带凭据的测试请求已到达 OpenAI 服务端，不代表账号认证已经完成。
@@ -66,7 +66,7 @@ Windows Codex Desktop 性能诊断与安全修复 Skill：
 - Codex CLI or Codex desktop app with Plugin Marketplace support
 - Windows 10/11, macOS, or Linux (Plugin-specific limitations may apply)
 - Python 3 for `publish-codex-skill`
-- PowerShell 7 (`pwsh`) for `fix-codex-retry-loop` and `diagnose-codex-desktop-lag`
+- PowerShell 7 (`pwsh`) for Windows use of `fix-codex-retry-loop` and `diagnose-codex-desktop-lag`
 - Python 3.11+ for `diagnose-codex-desktop-lag`
 - A local HTTP/Mixed proxy when proxy configuration is required
 

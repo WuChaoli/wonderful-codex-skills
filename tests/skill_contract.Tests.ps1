@@ -13,6 +13,8 @@ $requiredPatterns = [ordered]@{
     reachability = '401'
     restart = '完全退出.*Codex.*重新启动'
     rollback = '回滚'
+    macos = 'macOS'
+    envWrite = '写入.*\.env'
 }
 $passed = 0
 foreach ($entry in $requiredPatterns.GetEnumerator()) {
