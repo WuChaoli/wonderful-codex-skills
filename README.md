@@ -52,10 +52,10 @@ After adding the marketplace, restart Codex completely. Open Plugins, select **W
 
 ### [diagnose-codex-desktop-lag](plugins/diagnose-codex-desktop-lag/README.md)
 
-Windows Codex Desktop 性能诊断与安全修复 Skill：
+跨平台 Codex Desktop 性能诊断与安全修复 Skill：
 
-- 逐项运行 18 个独立只读诊断脚本，不提供一键批处理。
-- 覆盖资源、SQLite/WAL、任务历史、rollout、工作区、WSL 和显示驱动。
+- 逐项运行 18 个独立只读 Node.js 诊断命令，不提供一键批处理。
+- 覆盖资源、SQLite/WAL、任务历史、rollout、工作区、WSL 和显示驱动；平台不支持的项目会明确跳过。
 - 生成完整报告后，每次只预览、确认并执行一项可恢复修复。
 - 保护真实项目目录和用户指定配置，不删除 `codespace`。
 

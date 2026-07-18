@@ -1,7 +1,7 @@
 {
   "name": "diagnose-codex-desktop-lag",
-  "version": "0.1.0",
-  "description": "Diagnose Windows Codex Desktop lag and apply one confirmed, reversible repair at a time.",
+  "version": "0.2.0",
+  "description": "Diagnose Codex Desktop lag on Windows, macOS, and Linux and apply one confirmed, reversible repair at a time.",
   "author": {
     "name": "WuChaoli",
     "url": "https://github.com/WuChaoli"
@@ -9,12 +9,12 @@
   "homepage": "https://github.com/WuChaoli/wonderful-codex-skills/tree/main/plugins/diagnose-codex-desktop-lag",
   "repository": "https://github.com/WuChaoli/wonderful-codex-skills",
   "license": "MIT",
-  "keywords": ["codex", "windows", "desktop", "performance", "diagnostics", "sqlite"],
+  "keywords": ["codex", "windows", "macos", "linux", "desktop", "performance", "diagnostics", "sqlite", "nodejs"],
   "skills": "./skills/",
   "interface": {
     "displayName": "Diagnose Codex Desktop Lag",
-    "shortDescription": "Diagnose and safely repair Codex Desktop lag on Windows",
-    "longDescription": "Run isolated read-only diagnostics for CPU, GPU, I/O, SQLite, logs, threads, rollouts, temporary files, workspaces, WSL, and display drivers before applying one confirmed and reversible repair.",
+    "shortDescription": "Diagnose and safely repair Codex Desktop lag",
+    "longDescription": "Run isolated Node.js diagnostics for CPU, GPU, I/O, SQLite, logs, threads, rollouts, temporary files, workspaces, WSL, and display drivers before applying one confirmed and reversible repair.",
     "developerName": "WuChaoli",
     "category": "Codex Tools",
     "capabilities": ["Read", "Write"],

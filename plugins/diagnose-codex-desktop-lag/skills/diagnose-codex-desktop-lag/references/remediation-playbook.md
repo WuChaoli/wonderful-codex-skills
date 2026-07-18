@@ -1,31 +1,22 @@
-# Windows Codex Desktop 修复手册
+# 跨平台 Codex Desktop 修复手册
 
 ## 两次确认
 
-完整报告后先确认要处理的单项。随后用 `-WhatIf` 预览该脚本，展示预览，再确认是否应用。每次应用后只复测关联指标。
+完整报告后先确认要处理的单项。随后用 `--what-if` 预览该命令，展示预览，再确认是否用 `--apply` 应用。每次应用后只复测关联指标。
 
 ## 脚本化修复
 
 | 修复 | 前置证据 | 脚本 | 复测 |
 |---|---|---|---|
-| 在线备份 SQLite | 任意数据库修复前 | `backup-codex-databases.ps1` | 对备份运行完整性检查 |
-| 备份配置和状态 | 状态修复前 | `backup-codex-state.ps1` | 比较文件数量、大小 |
-| 隔离单个 rollout | 已确认单文件导致退化 | `quarantine-rollout-file.ps1` | 空任务/问题任务 A/B |
-| 一致归档单任务 | 活跃任务或巨型 rollout 已确认 | `archive-thread-consistently.ps1` | 任务统计、rollout、重启复验 |
-| 隔离陈旧临时文件 | 陈旧文件数量或体积异常 | `quarantine-stale-temp-files.ps1` | 临时文件统计、启动时间 |
-| 移除一个保存的工作区入口 | 精确入口异常或过宽 | `remove-stale-workspace-state.ps1` | 工作区状态、重启侧栏 |
-| 移除 Windows 的 WSL 标志 | 检出变量且观察到 `wsl.exe` | `remove-wsl-environment-marker.ps1` | 重启 Windows 后检查子进程 |
-| 阻断日志插入 | DB 完整、WAL 持续增长、TRACE 主导 | `block-log-inserts.ps1` | WAL、CPU、I/O |
-| 恢复日志插入 | trigger 无效或需要恢复 | `restore-log-inserts.ps1` | trigger 列表、日志增长 |
-| 恢复备份 | 修复无效或副作用 | `restore-codex-backup.ps1` | DB 完整性、配置、任务可见性 |
+| 任一修复 | 对应诊断已确认 | `node scripts/codex-performance.mjs remediate <action> --what-if` | 预览后才允许 `--apply` |
 
 先预览：
 
 ```powershell
-& "$skillRoot\scripts\remediation\block-log-inserts.ps1" -WhatIf
+node "$skillRoot/scripts/codex-performance.mjs" remediate block-log-inserts --what-if
 ```
 
-用户再次确认后，去掉 `-WhatIf`。不要同时运行第二个修复脚本。
+用户再次确认后，将 `--what-if` 改为 `--apply`。不要同时运行第二个修复命令。
 
 ## 可执行参考命令
 

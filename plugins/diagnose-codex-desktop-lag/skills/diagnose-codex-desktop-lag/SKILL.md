@@ -1,7 +1,7 @@
 ---
 name: diagnose-codex-desktop-lag
-description: Use when Windows Codex Desktop freezes, stutters, renders slowly, consumes high CPU, GPU, memory, or disk I/O, grows logs_2.sqlite WAL files, spawns repeated git.exe or wsl.exe processes, or becomes slow with large thread history.
-version: 0.1.0
+description: Use when Codex Desktop on Windows, macOS, or Linux freezes, stutters, renders slowly, consumes high CPU, GPU, memory, or disk I/O, grows logs_2.sqlite WAL files, spawns repeated child processes, or becomes slow with large thread history.
+version: 0.2.0
 metadata:
   category: Codex Tools
 ---
@@ -15,10 +15,10 @@ metadata:
 ## 工作协议
 
 1. 阅读 [diagnostic-playbook.md](references/diagnostic-playbook.md) 和 [symptom-matrix.md](references/symptom-matrix.md)。记录用户要求保留的配置和目录。
-2. 按清单逐个运行所有适用诊断脚本。每项记录 `ok`、`warning`、`error` 或 `skipped`；跳过时写明原因。诊断阶段不修改文件、配置、环境变量或数据库。
+2. 按清单逐个运行所有适用命令：`node <skill-dir>/scripts/codex-performance.mjs diagnose <check>`。每项记录 `ok`、`warning`、`error` 或 `skipped`；跳过时写明原因。诊断阶段不修改文件、配置、环境变量或数据库。
 3. 完成全部适用诊断和人工对照后，按模板给出完整诊断报告。区分“已确认”“已排除”“尚未确认”，并为每条修复建议提供证据、风险、收益和回滚方式。
 4. 停止并等待用户确认一项建议。不要把多个修复合并到一个确认中。
-5. 用户确认后，阅读 [remediation-playbook.md](references/remediation-playbook.md)，只对该项运行修复脚本的 `-WhatIf`。展示预览并再次等待应用确认。
+5. 用户确认后，阅读 [remediation-playbook.md](references/remediation-playbook.md)，只对该项运行 `remediate <action> --what-if`。展示预览并再次等待 `--apply` 确认。
 6. 应用确认后只执行这一项。立即重跑关联诊断，比较修复前后数据，然后停止并询问是否处理下一项。
 
 ## 硬性边界

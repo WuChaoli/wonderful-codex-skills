@@ -1,36 +1,19 @@
-# Windows Codex Desktop 诊断手册
+# 跨平台 Codex Desktop 诊断手册
 
 ## 执行规则
 
-要求 PowerShell 7 和 Python 3.11 或更高版本。从 skill 根目录运行，只使用当前 AI，不派发子智能体。每次只运行一个脚本并保存输出；不要并行采样 CPU、I/O、WAL，避免相互干扰。某项失败时记录错误，不伪造结果。
+要求 Node.js 22.13 或更高版本。从 skill 根目录运行，只使用当前 AI，不派发子智能体。每次只运行一个命令并保存输出；不要并行采样 CPU、I/O、WAL，避免相互干扰。某项失败时记录错误，不伪造结果。
 
 ## 诊断清单
 
 | 顺序 | 问题 | 脚本 |
 |---|---|---|
-| 1 | Codex 与 Windows 版本 | `scripts/diagnostics/get-codex-version.ps1` |
-| 2 | 系统内存、磁盘余量 | `measure-system-resources.ps1` |
-| 3 | 各 Codex 进程 CPU、内存 | `measure-codex-processes.ps1` |
-| 4 | Codex 进程 I/O 增量 | `measure-codex-io.ps1` |
-| 5 | Codex GPU engine | `measure-codex-gpu.ps1` |
-| 6 | Codex 子进程 | `inspect-codex-child-processes.ps1` |
-| 7 | WSL 环境标志 | `inspect-wsl-environment.ps1` |
-| 8 | GPU、虚拟显示驱动 | `inspect-display-drivers.ps1` |
-| 9 | `state_5.sqlite` 完整性 | `test-state-database.ps1` |
-| 10 | `logs_2.sqlite` 完整性和 trigger | `test-log-database.ps1` |
-| 11 | WAL 实际增长率 | `measure-log-wal-growth.ps1` |
-| 12 | 日志等级、target 和估算字节 | `summarize-log-levels.ps1` |
-| 13 | 活跃任务、token、元数据 | `summarize-thread-state.ps1` |
-| 14 | 数据库索引到的超大 rollout | `find-large-rollout-files.ps1` |
-| 15 | 超大标题、首条消息和 preview | `find-abnormal-thread-metadata.ps1` |
-| 16 | `.tmp`、`tmp` 状态 | `inspect-temporary-files.ps1` |
-| 17 | 保存的工作区入口 | `inspect-workspace-state.ps1` |
-| 18 | 安全配置摘要 | `inspect-codex-configuration.ps1` |
+| 1–18 | 对应检查名 | `node scripts/codex-performance.mjs diagnose <check>` |
 
 调用示例：
 
 ```powershell
-& "$skillRoot\scripts\diagnostics\measure-codex-processes.ps1" -SampleSeconds 15
+node "$skillRoot/scripts/codex-performance.mjs" diagnose codex-process-cpu-memory
 ```
 
 ## 人工对照
